@@ -20,9 +20,18 @@ export const SingleRecord = () => {
           <div className="card-detail">
             <h4 className="card-title">{singleUser.title}</h4>
             <h6 className="card-description">{singleUser.description}</h6>
-          <div className="d-flex">  <h5 className="card-price">Price: <span className="user-price">{singleUser.price}</span></h5>
-          <button></button>
-          </div>
+            <div className="d-flex align-items-center">
+              {" "}
+              <h5 className="card-price">
+                Price: <span className="user-price">{singleUser.price}</span>
+              </h5>
+              <div className="cart-button">
+                {" "}
+                <button>+</button>
+                <span>0</span>
+                <button>-</button>
+              </div>
+            </div>
           </div>
           <div className="card-image">
             <img src={singleUser.image} alt="" />
