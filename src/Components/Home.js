@@ -1,18 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState ,createContext, useContext} from "react";
 import { Cart } from "./Cart";
+import 'react-loading-skeleton/dist/skeleton.css';
+import { HomeUi } from "./HomeUi";
+import { Header } from "./Header";
+
+export const CharacterContext = createContext()
+export const ContextProvider = ({children}) => <CharacterContext.Provider value={useState([])}>
+    {children}
+  </CharacterContext.Provider>
+export const useCharacterContext = () => useContext(CharacterContext)
 
 export const Home = () => {
   const [characters, setCharacters] = useState([]);
-  const [cartItems, setCartItems] = useState([])
-
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      // .then((res) => console.log(res))
-      .then((res) => setCharacters(res.slice(0, 6)))
-      .catch((err) => console.log(err));
-  }, []);
+  const [cartItems, setCartItems] = useCharacterContext();
+  const [isLoading, setIsLoading] = useState(true)
+  console.log('cartitemslength' ,  cartItems.length)
+  
+  useEffect(()=>{
+    setTimeout(()=>{
+      axios.get("https://fakestoreapi.com/products")
+      .then(res => {
+        setCharacters(res.data)
+        setIsLoading(false)
+      })
+    },2000) 
+  },[])
   console.log("characters", characters);
 
   const onAdd = (product) => {
@@ -25,13 +38,9 @@ export const Home = () => {
     }else{
       setCartItems([...cartItems, {...product, qty: 1}])
     }
-    // console.log('adddbutton')
   }
 console.log('cartItemssss' , cartItems)
-  //  const newArr = characters.slice(0 , 15)
-  //  console.log('newarr' , newArr)
 
-  
   const onRemove = (product) =>{
     const exist = cartItems.find(cartItemsEntity => cartItemsEntity.id === product.id);
     if(exist.qty === 1){
@@ -43,32 +52,12 @@ console.log('cartItemssss' , cartItems)
       )
     }
   }
-
-
   return (
     <div className="container-fluid">
+   
       <div className="row">
         <div className="col-md-9">
-          <div className="my-data d-flex flex-wrap">
-            {characters.map((character, i) => {
-              return (
-                <div className="card total">
-                  <div className="card-body">
-                    <div className="card-image">
-                      <img src={character.image} alt="" />
-                    </div>
-                    <h6 className="card-title">{character.title}</h6>
-                    <span className="card-price">Price: {character.price}</span>
-                    <span className="card-category">
-                      Category: {character.category}
-                    </span>
-                    <Link to={`/singleRecord/${i}`}>More</Link>
-                    <button className="add-to-cart" onClick={()=>onAdd(character)}>Add to Cart</button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      <HomeUi characters={characters} isLoading={isLoading} onAdd={onAdd}/> 
         </div>
         <div className="col-md-3">
           <div className="cart-section">

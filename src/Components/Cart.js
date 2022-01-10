@@ -1,11 +1,15 @@
-import React from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Cart = (props) => {
   const { cartItems, onAdd, onRemove } = props;
+
   const totalAmount = cartItems.reduce((a, c) => {
     return a + c.qty * c.price;
   }, 0);
+
   console.log("totalamount", totalAmount);
+
   return (
     <div className="cart-info-section mt-4">
       <h4>Cart Items</h4>
@@ -47,6 +51,11 @@ export const Cart = (props) => {
         ) : (
           <span>0</span>
         )}
+        {cartItems.length !== 0 ? (
+          <Link to="/checkout" className="check-out-btn">
+            Go to Checkout
+          </Link>
+        ) : null}
       </div>
     </div>
   );

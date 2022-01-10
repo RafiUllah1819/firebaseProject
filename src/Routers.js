@@ -5,6 +5,7 @@ import { AuthSignIn } from "./Auth/AuthSignIn";
 import { Home } from "./Components/Home";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 import { SingleRecord } from "./Components/SingleRecord";
+import { Checkout } from "./Components/Checkout";
 
 export const Routers = () => {
   return (
@@ -15,6 +16,7 @@ export const Routers = () => {
         <Route path="/" element={<ProtectedRoutes />}>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/singleRecord/:id" element={<SingleRecord />}></Route>
+          <Route path="/checkout" element={<Checkout />}></Route>
         </Route>
       </Routes>
     </div>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export const SingleRecord = () => {
+  // console.log("cartitem", cart.totalAmount);
   const { id } = useParams();
   const [singleUser, setSingleUser] = useState({});
 
@@ -31,6 +32,10 @@ export const SingleRecord = () => {
                 <span>0</span>
                 <button>-</button>
               </div>
+            </div>
+            <div className="cart-btns">
+              <button className="btn btn-primary cart-btn">Add to Cart</button>
+              <Link to="/checkout">Go to CheckOut</Link>
             </div>
           </div>
           <div className="card-image">
