@@ -68,7 +68,7 @@ img {
 }
 .card {
   width: 31%;
-  margin: 10px;
+  margin: 8px;
 }
 .card-image {
   width: 177px;
@@ -231,7 +231,7 @@ form {
   border-radius: 6px;
 }
 .product {
-  width: 40%;
+  width: 60%;
   margin: 10px 0 0 36px;
 }
 .checkout-btn {
@@ -249,7 +249,7 @@ form {
   margin-top: 25px;
   color: white;
 }
-.cart-btns a{
+.cart-btns a {
   max-width: 237px;
   display: block;
   height: 40px;
@@ -258,5 +258,4 @@ form {
   border-radius: 3px;
   padding-top: 5px;
   text-align: center;
-
 }
