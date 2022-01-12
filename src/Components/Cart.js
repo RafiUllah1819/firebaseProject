@@ -1,20 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {  useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-export const CartContext = createContext([]);
-export const CartContextProvider = ({ children }) => (
-  <CartContext.Provider value={useState()}>{children}</CartContext.Provider>
-);
-export const useCartContext = () => useContext(CartContext);
+import { constextNode } from "../Context/Context";
 
 export const Cart = (props) => {
-  const { cartItems, onAdd, onRemove } = props;
+  const { cartItems, onAdd, onRemove } = useContext(constextNode);
 
-  const [total, setTotal] = useCartContext();
-
-  // const totalAmount = cartItems.reduce((a, c) => {
-  //   return a + c.qty * c.price;
-  // }, 0);
+  const [total, setTotal] = useState(); 
 
   useEffect(() => {
     const totalAmount = cartItems.reduce((a, c) => {

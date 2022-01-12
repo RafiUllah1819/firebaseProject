@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { useCartContext } from "./Cart";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCharacterContext } from "./Home";
 import { toast } from "react-toastify";
+import { constextNode } from "../Context/Context";
 
 export const Checkout = () => {
+  const { cartItems, onAdd, onRemove, total } = useContext(constextNode);
+
   const navigate = useNavigate();
-  const [cartitems] = useCharacterContext();
-  const [total] = useCartContext();
   const [validate, setValidate] = useState(false);
   const [orderRecord, setOrderRecord] = useState([]);
   const [state, setState] = useState({
@@ -20,8 +19,6 @@ export const Checkout = () => {
     country: "",
     zipcode: "",
   });
-
-  console.log("%cCheckout.js line:17 object", "color: #007acc;", total);
 
   const onChangeFname = (e) => {
     setState({
@@ -181,9 +178,7 @@ export const Checkout = () => {
               onChange={onChangeEmail}
               value={state.email}
             ></input>
-            {/* {validate && state.email === "" ? (
-              <span className="text-danger">Email is required</span>
-            ) : null} */}
+      
             {validate && state.email.indexOf("@") === -1 ? (
               <span className="text-danger">Invalid Email</span>
             ) : null}
@@ -248,12 +243,12 @@ export const Checkout = () => {
             <th>Total</th>
           </thead>
           <tbody>
-            {cartitems.map((cart, i) => {
+            {cartItems?.map((cart, i) => {
               return (
                 <tr key={i}>
                   <td>{cart.title}</td>
                   <td>{cart.price}</td>
-                  <td>{cartitems.length}</td>
+                  <td>{cartItems.length}</td>
                   <td> $ {total.toFixed(2)}</td>
                 </tr>
               );

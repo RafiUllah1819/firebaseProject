@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
+import { constextNode } from "../Context/Context";
 
 export const SingleRecord = () => {
-  // console.log("cartitem", cart.totalAmount);
+  const { onAdd, onRemove, cartItems } = useContext(constextNode);
+
   const { id } = useParams();
   const [singleUser, setSingleUser] = useState({});
 
@@ -22,19 +24,27 @@ export const SingleRecord = () => {
             <h4 className="card-title">{singleUser.title}</h4>
             <h6 className="card-description">{singleUser.description}</h6>
             <div className="d-flex align-items-center">
-              {" "}
               <h5 className="card-price">
                 Price: <span className="user-price">{singleUser.price}</span>
               </h5>
               <div className="cart-button">
-                {" "}
-                <button>+</button>
-                <span>0</span>
-                <button>-</button>
+                <button onClick={() => onAdd(singleUser.id)}>+</button>
+                {cartItems.map((item) => {
+                  return (
+                    <span>{item.qty === 0 ? <span>0</span> : item.qty}</span>
+                  );
+                })}
+
+                <button onClick={() => onRemove(singleUser.id)}>-</button>
               </div>
             </div>
             <div className="cart-btns">
-              <button className="btn btn-primary cart-btn">Add to Cart</button>
+              <button
+                className="btn btn-primary cart-btn"
+                onClick={() => onAdd(singleUser.id)}
+              >
+                Add to Cart
+              </button>
               <Link to="/checkout">Go to CheckOut</Link>
             </div>
           </div>

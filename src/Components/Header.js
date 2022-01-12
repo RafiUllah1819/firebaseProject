@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { auth } from "../Config/ConfigFirebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
-import { useCharacterContext } from "./Home";
 import { Link } from "react-router-dom";
+import { constextNode } from "../Context/Context";
 
 export const Header = () => {
-  const navigate = useNavigate();
+ 
   const [user, setUser] = useState({});
-  const [cartItems] = useCharacterContext();
+  const { cartItems } = useContext(constextNode);
+
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
   }, []);
-  console.log("sdfsdf", cartItems.length);
+ 
   const logout = () => {
     signOut(auth)
       .then(() => {
@@ -39,6 +39,7 @@ export const Header = () => {
           <form className="form-inline my-2 my-lg-0">
             <Link to="/checkout">
               <span className="cart-item">{cartItems.length}</span>
+    
               <span className="cart-icon">
                 <i className="fa fa-shopping-cart"></i>
               </span>

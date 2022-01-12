@@ -1,13 +1,14 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+
+import React, { useContext} from "react";
 import { Link } from "react-router-dom";
-import { Cart } from "./Cart";
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import  { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { SkeletionCard } from "./SkeletionCard";
+import { constextNode } from "../Context/Context";
 
 export const HomeUi = (props) => {
-    const {characters, isLoading, onAdd} = props;
+  const { characters, onAdd, isLoading } = useContext(constextNode);
+
   return (
     <div>
       <SkeletonTheme highlightColor="#444">
@@ -22,7 +23,7 @@ export const HomeUi = (props) => {
           </div>
         ) : (
           <div className="my-data d-flex flex-wrap">
-            {characters.map((character, i) => {
+            {characters?.map((character, i) => {
               return (
                 <div className="card total">
                   <div className="card-body">
